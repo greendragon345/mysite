@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video.js H.265 Example</title>
+  <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
+  <style>
+    .video-js {
+      width: 600px;
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <video id="my-video" class="video-js vjs-default-skin" controls preload="auto">
+    <source src="/mnt/DATA/Tv-shows/Game.of.Thrones.Season.1-8.S01-08.COMPLETE.1080p.BluRay.WEB.x265.10bit.6CH.ReEnc-LUMI/Season1/Game.of.Thrones.S01E05.1080p.BluRay.x265.10bit.6CH.ReEnc-LUMI.mp4" type="video/mp4">
+  </video>
+
+  <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
+  <script>
+    // Your custom tech code here
+    import videojs from 'video.js';
+
+    class H265Tech extends videojs.getTech('Tech') {
+      constructor(options, ready) {
+        super(options, ready);
+        // Initialize your WebAssembly decoder here
+      }
+
+      createEl() {
+        const el = videojs.dom.createEl('video', {
+          // Set attributes and properties for the video element
+        });
+        return el;
+      }
+
+      // Implement other necessary methods like play, pause, etc.
+    }
+
+    videojs.registerTech('H265Tech', H265Tech);
+
+    const player = videojs('my-video', {
+      techOrder: ['H265Tech', 'html5'],
+      sources: [{
+        src: '/mnt/DATA/Tv-shows/Game.of.Thrones.Season.1-8.S01-08.COMPLETE.1080p.BluRay.WEB.x265.10bit.6CH.ReEnc-LUMI/Season1/Game.of.Thrones.S01E05.1080p.BluRay.x265.10bit.6CH.ReEnc-LUMI.mp4',
+        type: 'video/mp4'
+      }]
+    });
+  </script>
+</body>
+</html>
