@@ -25,7 +25,7 @@ const app = express()
 
 app.get('/watch/movies/:moviename', (req, res) => {
   const movie = req.params.moviename
-  const videoPath = movies_json[movie.replace(' ', ".")]
+  const videoPath = movies_json[movie]["path"]
   const stat = fs.statSync(videoPath);
   const fileSize = stat.size;
   const range = req.headers.range;
