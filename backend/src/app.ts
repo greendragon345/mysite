@@ -73,6 +73,7 @@ app.get('/watch/:tvshow/:season/:ep', (req, res) => {
       'Content-Range': `bytes ${start}-${end}/${fileSize}`,
       'Accept-Ranges': 'bytes',
       'Content-Length': chunkSize,
+      'Access-Control-Allow-Origin': `http://${IP_ADDR}`,
       'Content-Type': 'video/mp4',
     };
 
