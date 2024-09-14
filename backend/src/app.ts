@@ -43,7 +43,8 @@ app.get('/watch/movies/:moviename', (req, res) => {
       console.log(fileSize - 1)
       
     }
-    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+    const tempend = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+    const end = (tempend > 0) ? tempend : 10000000;
     const chunkSize = end - start + 1;
     const file = fs.createReadStream(videoPath, { start, end });
     const head = {
