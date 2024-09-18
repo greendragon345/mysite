@@ -106,18 +106,18 @@ app.get('/watch/:tvshow/:season/:ep', (req, res) => {
 // app.use(helmet())
 app.get('/api/tvshows', (req, res) => {
   // res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
-  res.setHeader('Access-Control-Allow-Origin', `http://${IP_ADDR}`)
+  res.setHeader('Access-Control-Allow-Origin', `*`)
 
   res.json(tvshows_json)
 });
 app.get('/api/movies', (req, res) => {
   // res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
-  res.setHeader('Access-Control-Allow-Origin', `http://${IP_ADDR}`)
+  res.setHeader('Access-Control-Allow-Origin', `*`)
 
   res.json(movies_json)
 });
 app.get('/api/test', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + "")
+  res.setHeader('Access-Control-Allow-Origin', "*")
   res.json({ message: 'Hello, World!' });
 });
 
