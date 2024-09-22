@@ -78,6 +78,7 @@ const Episodes = ({ TvShow, season }: EpisodesPrompts) => {
               {season} episode{index + 1}
             </p>
             <Player
+              crossOrigin="anonymous"
               key={index + 1}
               url={item.video_path}
               light={item.episode_img}
