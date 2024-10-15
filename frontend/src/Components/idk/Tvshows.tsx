@@ -10,7 +10,21 @@ interface ShowData {
 }
 const Tvshows = () => {
   const IP_ADDR = process.env.REACT_APP_IP_ADDR
-
+  const addImage = async (tvshow: string) => {
+    let image = await (
+      await fetch(`http://${IP_ADDR}:7000/api/` + tvshow + "/getimage")
+    ).text()
+    let temparray: ShowData[] = [...ShowDataArr]
+    temparray.push({
+      showName: tvshow,
+      showImage: image
+    })
+    console.log("here")
+    console.log(temparray);
+    setShowDataArr(temparray);
+    console.log(ShowDataArr)
+    SetUpdateData(UpdateData + 1);
+  }
   const navigate = useNavigate();
   const [ShowDataArr, setShowDataArr] = useState<ShowData[]>([
     {
@@ -27,16 +41,26 @@ const Tvshows = () => {
     ).text();
     let data = JSON.parse(response);
     let TempDataArr: ShowData[] = [];
-    Object.keys(data).map((val: string, index: number) => {
-      TempDataArr.push({ showName: val, showImage: data[val]["show-img"] });
-    });
-    console.log(TempDataArr);
+    for (const key in data) {
+      let image = await (
+        await fetch(`http://${IP_ADDR}:7000/api/` + data[key] + "/getimage")
+      ).text()
+      TempDataArr.push({
+        showName: data[key],
+        showImage: image
+      })
+    }
     setShowDataArr(TempDataArr);
+    console.log(ShowDataArr)
     SetUpdateData(UpdateData + 1);
+    // Object.keys(data).map(async (val: string, index: number) => {
+    //   addImage(data[index],)
+    // });
   };
 
   useEffect(() => {
-    console.log(process.env.REACT_APP_TEST)
+    console.log(ShowDataArr)
+
     getData();
   }, []);
 
@@ -49,7 +73,10 @@ const Tvshows = () => {
       <Grid container spacing={0} rowSpacing={0} columnSpacing={0}>
 
         {ShowDataArr?.map((item, index) => {
+          console.log("hooas")
+          console.log(item)
           console.log(item.showImage);
+          console.log(item.showName);
           return (
             <Grid item xs={3} key={index} style={{}} >
               <div tabIndex={0} onClick={() => navigate('/seasons', { state: { Tvshow: item.showName } })}>

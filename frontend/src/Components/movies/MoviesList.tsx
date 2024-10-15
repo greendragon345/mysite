@@ -29,7 +29,7 @@ const MoviesList = () => {
         Object.keys(data).map((val: string, index: number) => {
             TempDataArr.push({ showName: val, showImage: data[val]["movie-img"] });
         });
-        console.log(TempDataArr);
+        //console.log(TempDataArr);
         setShowDataArr(TempDataArr);
         SetUpdateData(UpdateData + 1);
     };
@@ -45,7 +45,7 @@ const MoviesList = () => {
             <Grid container spacing={0} rowSpacing={0} columnSpacing={0}>
 
                 {ShowDataArr?.map((item, index) => {
-                    console.log(item.showImage);
+                    //console.log(item.showImage);
                     return (
                         <Grid item xs={3} key={index} style={{}} >
                             <div tabIndex={0} onClick={() => navigate('/movies', { state: { Movie: item.showName } })}>

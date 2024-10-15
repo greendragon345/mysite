@@ -10,13 +10,13 @@ const Seasons = ({ TvShow }: any) => {
   const [ShowSeasonsData, SetShowSeasonsData] = useState<string[]>()
   const getData = async () => {
     let response = await (
-      await fetch(`http://${IP_ADDR}:7000/api/tvshows`)
+      await fetch(`http://${IP_ADDR}:7000/api/${TvShow}/seasons`)
     ).text();
     let data = JSON.parse(response);
     let TempDataArr: string[] = [];
-    for (let index = 0; index < Object.keys(data[TvShow]).length; index++) {
-      if (Object.keys(data[TvShow])[index] != "show-img") {
-        TempDataArr.push(Object.keys(data[TvShow])[index]);
+    for (let index = 0; index < Object.keys(data).length; index++) {
+      if (Object.keys(data)[index] != "show-img") {
+        TempDataArr.push(Object.keys(data)[index]);
 
       }
     }
@@ -25,9 +25,9 @@ const Seasons = ({ TvShow }: any) => {
       if (parseInt(b.replaceAll("season", "")) > parseInt(a.replaceAll("season", ""))) return -11;
       return 0
     })
-    SetTvShowImage(data[TvShow]["show-img"]);
+    SetTvShowImage(data["show-img"]);
     SetShowSeasonsData(TempDataArr);
-    console.log(Object.keys(data[TvShow]))
+    console.log(Object.keys(data))
 
   };
 

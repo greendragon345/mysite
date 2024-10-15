@@ -34,14 +34,14 @@ app.get('/watch/movies/:moviename', (req, res) => {
   if (range) {
     const parts = range.replace(/bytes=/, '').split('-');
     const start = parseInt(parts[0], 10);
-    if(parts[1] ? parseInt(parts[1], 10) : fileSize - 1 < 0){
+    if (parts[1] ? parseInt(parts[1], 10) : fileSize - 1 < 0) {
       console.log("the parts[1] arg")
       console.log(parts[1])
       console.log("the paseInt")
       console.log(parseInt(parts[1], 10))
       console.log("filesize -1")
       console.log(fileSize - 1)
-      
+
     }
     const tempend = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
     const end = (tempend > 0) ? tempend : 10000000;
@@ -105,19 +105,24 @@ app.get('/watch/:tvshow/:season/:ep', (req, res) => {
 // app.use(cors())
 // app.use(helmet())
 app.get('/api/tvshows', (req, res) => {
-  // res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
-  res.setHeader('Access-Control-Allow-Origin', `*`)
-
-  res.json(tvshows_json)
+  res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
+  res.send(Object.keys(tvshows_json))
 });
+app.get('/api/:tvshow/seasons', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
+  res.json(tvshows_json[req.params.tvshow])
+})
+app.get('/api/:tvshow/getimage', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
+  res.send(tvshows_json[req.params.tvshow]["show-img"])
+})
 app.get('/api/movies', (req, res) => {
-  // res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
-  res.setHeader('Access-Control-Allow-Origin', `*`)
+  res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
 
   res.json(movies_json)
 });
 app.get('/api/test', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', "*")
+  res.setHeader('Access-Control-Allow-Origin', "http://" + IP_ADDR + ":3000")
   res.json({ message: 'Hello, World!' });
 });
 

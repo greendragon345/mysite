@@ -35,16 +35,13 @@ const Episodes = ({ TvShow, season }: EpisodesPrompts) => {
 
   const getData = async () => {
     let response = await (
-      await fetch(`http://${IP_ADDR}:7000/api/tvshows`)
+      await fetch(`http://${IP_ADDR}:7000/api/${TvShow}/seasons`)
     ).text();
     let data = JSON.parse(response);
     let TempDataArr: EpisodeData[] = [];
-    console.log(TvShow);
-    console.log(season);
-    console.log(data);
-    Object.keys(data[TvShow][season]["episodes"]).map(
+    Object.keys(data[season]["episodes"]).map(
       (val: string, index: number) => {
-        let ep = data[TvShow][season]["episodes"][val];
+        let ep = data[season]["episodes"][val];
         TempDataArr.push({
           name: ep["name"],
           description: ep["description"],
